@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Retina Canvas Boilerplate</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+
+    <canvas id="our_canvas_id"></canvas>
+
+    <script type="text/javascript" src="js/retinaCanvas.js"></script>
+    <script type="text/javascript">
+      
+      var rc = new RetinaCanvas('our_canvas_id');
+
+      rc.update = function () {
+        rc.__draw();
+      }
+
+      var drawSpiral = new RetinaDrawContainer(function(){
+
+        this.visible = true;
+        this.drawOnlyOnce = true;
+
+        rc.ctx.lineWidth = 1;
+        rc.ctx.strokeStyle =  "#000";
+        rc.ctx.moveTo(rc.globalWidth/2, rc.globalHeight/2);
+
+        for (i=0; i< 720; i++) {
+          var angle = 0.9 * i;
+          var x=(rc.globalWidth/2) + angle*Math.cos(angle);
+          var y=(rc.globalHeight/2) + angle*Math.sin(angle);
+          rc.ctx.lineTo(x, y);
+        }
+
+        rc.ctx.stroke();
+
+      });
+
+      rc.drawArray.push(drawSpiral);
+
+      
+    </script>
+
+  </body>
+</html>
